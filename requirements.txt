@@ -1,0 +1,12 @@
+# ===== LLM =====
+google-genai>=1.0.0          # Google Gemini API client
+
+# ===== Search =====
+wikipedia-api>=0.6.0          # Wikipedia search integration
+duckduckgo-search>=6.0.0      # Web search (no API key needed)
+
+# ===== Web UI =====
+flask>=3.0.0                  # Lightweight web framework
+
+# ===== Utilities =====
+python-dotenv>=1.0.0          # Load .env files into environment variables
