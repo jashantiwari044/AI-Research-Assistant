@@ -3,7 +3,8 @@ google-genai>=1.0.0          # Google Gemini API client
 
 # ===== Search =====
 wikipedia-api>=0.6.0          # Wikipedia search integration
-duckduckgo-search>=6.0.0      # Web search (no API key needed)
+ddgs>=9.0.0                   # DuckDuckGo search (no API key needed)
+duckduckgo-search>=6.0.0      # Fallback web search
 
 # ===== Web UI =====
 flask>=3.0.0                  # Lightweight web framework

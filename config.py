@@ -27,7 +27,7 @@ load_dotenv()
 # ── Gemini LLM Settings ────────────────────────────────────────
 # os.getenv("KEY", "default") fetches the env var, or uses the default
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 # ── Search Settings ────────────────────────────────────────────
 # Maximum number of results to fetch from each search source

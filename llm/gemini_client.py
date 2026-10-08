@@ -152,22 +152,40 @@ class GeminiClient:
         # ── Step 2: Call the Gemini API ────────────────────────────
         print("  ⟳ Asking Gemini to synthesize findings...")
 
-        try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=user_prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=SYSTEM_PROMPT,
-                    temperature=0.5,           # Balanced: factual but readable
-                    max_output_tokens=2048,    # Max length of the response
-                ),
-            )
+        candidate_models = [self.model]
+        for fallback in ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite", "gemini-3.8-flash"]:
+            if fallback not in candidate_models:
+                candidate_models.append(fallback)
 
-            raw_text = response.text
-            print("  ✓ Gemini response received")
+        last_error = None
+        raw_text = None
 
-        except Exception as e:
-            raise Exception(f"Gemini API call failed: {str(e)}")
+        for model_name in candidate_models:
+            try:
+                response = self.client.models.generate_content(
+                    model=model_name,
+                    contents=user_prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction=SYSTEM_PROMPT,
+                        temperature=0.5,           # Balanced: factual but readable
+                        max_output_tokens=2048,    # Max length of the response
+                    ),
+                )
+                raw_text = response.text
+                self.model = model_name
+                print(f"  ✓ Gemini response received (model: {model_name})")
+                break
+            except Exception as e:
+                last_error = e
+                err_str = str(e)
+                # If deprecated model, high demand, or rate limit, try the next candidate
+                if any(k in err_str for k in ["404", "503", "UNAVAILABLE", "NOT_FOUND", "ResourceExhausted", "429"]):
+                    continue
+                else:
+                    raise Exception(f"Gemini API call failed: {err_str}")
+
+        if raw_text is None:
+            raise Exception(f"Gemini API call failed across models: {str(last_error)}")
 
         # ── Step 3: Parse the JSON response ────────────────────────
         report = self._parse_response(raw_text, question, search_results)

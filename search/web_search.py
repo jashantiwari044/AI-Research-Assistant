@@ -21,8 +21,10 @@ KEY CONCEPTS:
    This makes it perfect for learning and prototyping!
 """
 
-from typing import List
-from duckduckgo_search import DDGS
+try:
+    from ddgs import DDGS
+except ImportError:
+    from duckduckgo_search import DDGS
 
 from search.base import BaseSearcher
 from models.schemas import SearchResult
@@ -68,10 +70,10 @@ class WebSearcher(BaseSearcher):
             #   keywords:    The search query
             #   max_results: Cap the number of results
             with DDGS() as ddgs:
-                search_results = ddgs.text(
-                    keywords=query,
-                    max_results=MAX_SEARCH_RESULTS,
-                )
+                try:
+                    search_results = ddgs.text(query, max_results=MAX_SEARCH_RESULTS)
+                except TypeError:
+                    search_results = ddgs.text(keywords=query, max_results=MAX_SEARCH_RESULTS)
 
                 # ── Process each result ────────────────────────────
                 # Each result is a dictionary with keys:
