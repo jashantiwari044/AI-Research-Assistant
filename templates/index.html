@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Research Assistant — Ask a research question and get a structured answer with citations from multiple sources.">
+    <title>AI Research Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts — Inter for a modern, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ============================================= -->
+    <!-- BACKGROUND EFFECTS                            -->
+    <!-- ============================================= -->
+    <div class="bg-effects">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- MAIN CONTAINER                                -->
+    <!-- ============================================= -->
+    <div class="container">
+        <!-- ── Header ──────────────────────────────── -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🔬</span>
+                <h1>AI Research Assistant</h1>
+            </div>
+            <p class="tagline">Ask a research question. Get structured answers with real citations.</p>
+        </header>
+
+        <!-- ── Search Form ─────────────────────────── -->
+        <form id="research-form" class="search-section">
+            <div class="search-input-wrapper">
+                <input 
+                    type="text" 
+                    id="question-input" 
+                    placeholder="What would you like to research?" 
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit" id="search-btn">
+                    <span class="btn-text">Research</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+            <div class="search-options">
+                <label class="source-option">
+                    <input type="radio" name="sources" value="all" checked>
+                    <span class="option-label">🌐 All Sources</span>
+                </label>
+                <label class="source-option">
+                    <input type="radio" name="sources" value="wiki">
+                    <span class="option-label">📚 Wikipedia</span>
+                </label>
+                <label class="source-option">
+                    <input type="radio" name="sources" value="web">
+                    <span class="option-label">🔍 Web Search</span>
+                </label>
+            </div>
+        </form>
+
+        <!-- ── Loading State ───────────────────────── -->
+        <div id="loading" class="loading hidden">
+            <div class="loading-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="loading-steps">
+                <p class="step" id="step-validate">
+                    <span class="step-icon">⏳</span> Validating question...
+                </p>
+                <p class="step" id="step-search">
+                    <span class="step-icon">⏳</span> Searching sources...
+                </p>
+                <p class="step" id="step-synthesize">
+                    <span class="step-icon">⏳</span> Synthesizing with AI...
+                </p>
+                <p class="step" id="step-format">
+                    <span class="step-icon">⏳</span> Formatting report...
+                </p>
+            </div>
+        </div>
+
+        <!-- ── Error State ─────────────────────────── -->
+        <div id="error" class="error-banner hidden">
+            <span class="error-icon">⚠️</span>
+            <p id="error-message"></p>
+        </div>
+
+        <!-- ── Results ─────────────────────────────── -->
+        <div id="results" class="results hidden">
+            <!-- Question -->
+            <div class="result-question">
+                <span class="label">Research Question</span>
+                <h2 id="result-question-text"></h2>
+            </div>
+
+            <!-- Summary -->
+            <div class="result-card summary-card">
+                <div class="card-header">
+                    <span class="card-icon">📋</span>
+                    <h3>Summary</h3>
+                </div>
+                <p id="result-summary"></p>
+            </div>
+
+            <!-- Sections -->
+            <div id="result-sections" class="sections-container"></div>
+
+            <!-- Citations -->
+            <div class="result-card citations-card">
+                <div class="card-header">
+                    <span class="card-icon">📚</span>
+                    <h3>Sources</h3>
+                </div>
+                <div id="result-citations" class="citations-list"></div>
+            </div>
+
+            <!-- Metadata -->
+            <div class="result-meta" id="result-metadata"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
