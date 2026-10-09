@@ -1,6 +1,4 @@
 <div align="center">
-![Reviewed by FreeAcademy](https://freeacademy.ai/api/project-badge/ea49a351-af3d-41af-a3f5-5ee5de68f89b)](https://freeacademy.ai/projects/ea49a351-af3d-41af-a3f5-5ee5de68f89b)
-# 🔬 AI Research Assistant
 
 ### Autonomous Multi-Source Research Engine with Grounded Citations & Synthesis
 
